@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { MemoFilter, QuickTag } from '../types';
 import { toggleQuickTag } from '../services/tagging';
 
@@ -38,11 +38,17 @@ const TagFilter = ({ filter, tags, quickTags, onChange, onReset }: TagFilterProp
     filter.quickTags.length > 0;
 
   const [expanded, setExpanded] = useState(hasActiveFilters);
+  const previousActive = useRef(hasActiveFilters);
+  const detailsId = 'memo-filter-details';
 
   useEffect(() => {
+    if (hasActiveFilters && !previousActive.current) {
+      setExpanded(true);
+    }
     if (!hasActiveFilters) {
       setExpanded(false);
     }
+    previousActive.current = hasActiveFilters;
   }, [hasActiveFilters]);
 
   const toggleExpanded = () => {
@@ -73,17 +79,19 @@ const TagFilter = ({ filter, tags, quickTags, onChange, onReset }: TagFilterProp
             className={hasActiveFilters ? 'icon ghost active' : 'icon ghost'}
             aria-expanded={expanded}
             onClick={toggleExpanded}
+            aria-controls={detailsId}
             aria-label="詳細フィルタを切り替え"
           >
             {expanded ? '－' : '＋'}
           </button>
-          <button className="ghost" onClick={onReset} disabled={!hasActiveFilters}>
+          {hasActiveFilters && !expanded && <span className="filter-status">フィルタ中</span>}
+          <button type="button" className="ghost" onClick={onReset} disabled={!hasActiveFilters}>
             リセット
           </button>
         </div>
       </div>
       {showDetails && (
-        <div className="filter-details">
+        <div className="filter-details" id={detailsId}>
           <div className="filter-row">
             <label className="filter-label" htmlFor="memo-filter-date">
               日付

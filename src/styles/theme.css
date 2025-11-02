@@ -1,39 +1,42 @@
 :root {
-  font-family: 'Zen Kaku Gothic New', 'Inter', 'Shippori Mincho', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
--serif;
-  color: #f4f7fa;
-  background-color: #04141b;
-  --page-background: #04141b;
-  --bg-panel: #081e28;
-  --bg-card: #0b2530;
+  font-family: 'Zen Kaku Gothic New', 'Inter', 'Shippori Mincho', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #f1f6fa;
+  background-color: #030d13;
+  --page-background: #030d13;
+  --bg-panel: #081821;
+  --bg-card: #050f15;
   --bg-accent: #096a92;
-  --bg-elevated: rgba(9, 106, 146, 0.16);
-  --border-soft: rgba(9, 106, 146, 0.35);
-  --text-primary: #f4f7fa;
-  --text-muted: rgba(244, 247, 250, 0.6);
-  --shadow-soft: 0 12px 28px rgba(0, 0, 0, 0.45);
+  --bg-elevated: rgba(9, 106, 146, 0.18);
+  --border-soft: rgba(9, 106, 146, 0.38);
+  --surface-line: rgba(241, 246, 250, 0.08);
+  --text-primary: #f1f6fa;
+  --text-muted: rgba(241, 246, 250, 0.6);
+  --section-gap: 72px;
+  --shadow-soft: none;
   --shadow-hard: none;
-  --quick-tag-bg: rgba(9, 106, 146, 0.14);
+  --quick-tag-bg: rgba(9, 106, 146, 0.16);
   --quick-tag-active: rgba(9, 106, 146, 0.6);
   --danger: #ff6b81;
   --success: #72f6c5;
 }
 
 :root[data-theme='light'] {
-  color: #0d1f29;
-  background-color: #f5f9fb;
-  --page-background: #f5f9fb;
+  color: #0a1e29;
+  background-color: #f3f8fa;
+  --page-background: #f3f8fa;
   --bg-panel: #ffffff;
-  --bg-card: #f3f7f9;
+  --bg-card: #f6fafc;
   --bg-accent: #096a92;
-  --bg-elevated: rgba(9, 106, 146, 0.12);
-  --border-soft: rgba(9, 106, 146, 0.28);
-  --text-primary: #0d1f29;
-  --text-muted: rgba(13, 31, 41, 0.6);
-  --shadow-soft: 0 10px 24px rgba(9, 106, 146, 0.12);
+  --bg-elevated: rgba(9, 106, 146, 0.08);
+  --border-soft: rgba(9, 106, 146, 0.22);
+  --surface-line: rgba(9, 106, 146, 0.14);
+  --text-primary: #0a1e29;
+  --text-muted: rgba(10, 30, 41, 0.58);
+  --section-gap: 72px;
+  --shadow-soft: none;
   --shadow-hard: none;
-  --quick-tag-bg: rgba(9, 106, 146, 0.12);
-  --quick-tag-active: rgba(9, 106, 146, 0.9);
+  --quick-tag-bg: rgba(9, 106, 146, 0.08);
+  --quick-tag-active: rgba(9, 106, 146, 0.82);
   --danger: #d72638;
   --success: #0ca678;
 }
@@ -49,55 +52,66 @@ body {
   min-height: 100vh;
   background-color: var(--page-background);
   color: var(--text-primary);
+  line-height: 1.65;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--section-gap);
 }
 
 .app-shell {
-  max-width: 1040px;
+  max-width: 920px;
   margin: 0 auto;
-  padding: 72px 32px 112px;
+  padding: 96px 56px 128px;
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: var(--section-gap);
 }
 
 .app-header {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 16px 20px;
-  padding: 32px;
-  border-radius: 2px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  align-items: start;
+  gap: 24px 32px;
+  padding: 48px 56px;
+  border-radius: 0;
   background: var(--bg-panel);
-  border: 1px solid var(--border-soft);
+  border: 1px solid var(--surface-line);
 }
 
 .app-header h1 {
   margin: 0;
   font-family: 'Shippori Mincho', serif;
-  font-size: 2.4rem;
+  font-size: 2.6rem;
+  letter-spacing: 0.04em;
 }
 
 .subtitle {
-  margin: 4px 0 0;
+  margin: 8px 0 0;
   color: var(--text-muted);
   font-size: 0.95rem;
+  max-width: 360px;
 }
 
 .header-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 8px 12px;
   justify-content: flex-end;
+  align-items: center;
 }
 
 button {
   font: inherit;
-  border: none;
-  border-radius: 2px;
-  padding: 10px 18px;
+  border: 1px solid transparent;
+  border-radius: 0;
+  padding: 10px 20px;
+  background: transparent;
+  color: inherit;
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 button:disabled {
@@ -108,13 +122,14 @@ button:disabled {
 button:focus-visible,
 input:focus-visible,
 textarea:focus-visible {
-  outline: 3px solid rgba(114, 246, 197, 0.6);
-  outline-offset: 2px;
+  outline: 2px solid rgba(9, 106, 146, 0.6);
+  outline-offset: 1px;
 }
 
 button.primary {
   background: var(--bg-accent);
   color: #fff;
+  border-color: transparent;
 }
 
 button.primary:hover {
@@ -122,8 +137,7 @@ button.primary:hover {
 }
 
 button.ghost {
-  background: transparent;
-  color: inherit;
+  border-color: var(--surface-line);
 }
 
 button.ghost:hover {
@@ -132,12 +146,12 @@ button.ghost:hover {
 
 button.danger {
   color: var(--danger);
-  border: 1px solid rgba(255, 107, 129, 0.45);
+  border-color: rgba(255, 107, 129, 0.45);
 }
 
 button.icon {
   padding: 6px 10px;
-  border-radius: 2px;
+  border-radius: 0;
   background: transparent;
   font-size: 0.9rem;
 }
@@ -146,53 +160,79 @@ button.icon:hover {
   background: rgba(9, 106, 146, 0.12);
 }
 
+button.icon.ghost {
+  border-color: transparent;
+}
+
 button.quick-tag,
 .tag-chip,
 .quick-tag-chip {
-  border-radius: 2px;
-  padding: 6px 12px;
-  background: var(--quick-tag-bg);
+  border-radius: 0;
+  padding: 6px 14px;
+  background: transparent;
   color: inherit;
-  border: 1px solid transparent;
+  border: 1px solid var(--surface-line);
 }
 
 button.quick-tag.active,
-.tag-chip.active,
-.quick-tag-chip {
-  background: rgba(9, 106, 146, 0.24);
+.tag-chip.active {
+  background: rgba(9, 106, 146, 0.18);
   border-color: var(--quick-tag-active);
+  color: var(--bg-accent);
 }
 
 .memo-input,
 .memo-board .memo-card {
   background: var(--bg-panel);
-  border-radius: 2px;
-  padding: 28px;
-  border: 1px solid var(--border-soft);
+  border-radius: 0;
+  padding: 40px 48px;
+  border: 1px solid var(--surface-line);
   position: relative;
+}
+
+.memo-input {
+  display: grid;
+  gap: 24px;
+}
+
+.memo-input form {
+  display: grid;
+  gap: 20px;
 }
 
 .filter-panel {
   background: var(--bg-panel);
-  border-radius: 2px;
-  padding: 20px 24px;
-  border: 1px solid var(--border-soft);
+  border-radius: 0;
+  padding: 32px 40px;
+  border: 1px solid var(--surface-line);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 20px;
 }
 
 .filter-panel.collapsed {
   max-width: 420px;
-  padding: 12px 16px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  gap: 0;
 }
 
 .filter-panel.expanded {
-  gap: 24px;
+  gap: 28px;
 }
 
-.filter-panel.active {
+.filter-panel.active:not(.collapsed) {
   border-color: var(--quick-tag-active);
+}
+
+.filter-panel.collapsed .filter-compact {
+  padding: 12px 0 18px;
+  border-bottom: 1px solid var(--surface-line);
+}
+
+.filter-panel.collapsed.active .filter-compact {
+  border-bottom-color: var(--quick-tag-active);
 }
 
 .memo-input header h2 {
@@ -201,7 +241,7 @@ button.quick-tag.active,
 }
 
 .memo-input header p {
-  margin: 6px 0 18px;
+  margin: 8px 0 0;
   color: var(--text-muted);
   font-size: 0.9rem;
 }
@@ -210,13 +250,17 @@ textarea,
 input[type='text'],
 input[type='date'] {
   width: 100%;
-  border-radius: 2px;
-  border: 1px solid var(--border-soft);
+  border-radius: 0;
+  border: 1px solid var(--surface-line);
   background: var(--bg-card);
   color: inherit;
-  padding: 10px 12px;
+  padding: 12px 14px;
   resize: vertical;
   font: inherit;
+}
+
+textarea {
+  line-height: 1.7;
 }
 
 textarea::placeholder,
@@ -229,25 +273,26 @@ input::placeholder {
 .chip-list {
   display: flex;
   flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.chip-list.compact {
   gap: 8px;
   margin-top: 8px;
 }
 
-.chip-list.compact {
-  gap: 6px;
-  margin-top: 8px;
-}
-
 .actions {
-  margin-top: 18px;
+  margin: 0;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 }
 
 .voice-indicator {
   font-size: 0.85rem;
   color: var(--text-muted);
+  letter-spacing: 0.08em;
 }
 
 .voice-indicator.active {
@@ -267,10 +312,10 @@ input::placeholder {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 10px;
-  border-radius: 2px;
-  background: rgba(9, 106, 146, 0.12);
-  border: 1px solid transparent;
+  padding: 4px 12px;
+  border-radius: 0;
+  background: transparent;
+  border: 1px solid var(--surface-line);
   color: inherit;
   font-size: 0.85rem;
 }
@@ -283,7 +328,7 @@ input::placeholder {
 
 .toggle.active {
   border-color: var(--quick-tag-active);
-  background: rgba(9, 106, 146, 0.2);
+  background: rgba(9, 106, 146, 0.16);
 }
 
 .tag-filter-group {
@@ -308,13 +353,13 @@ input::placeholder {
 
 .memo-board {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 28px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 36px;
 }
 
 .memo-board.empty {
   text-align: center;
-  padding: 40px;
+  padding: 72px;
   color: var(--text-muted);
   font-style: italic;
 }
@@ -322,7 +367,7 @@ input::placeholder {
 .memo-card {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
   position: relative;
   overflow: hidden;
 }
@@ -335,6 +380,8 @@ input::placeholder {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--surface-line);
 }
 
 .timestamp {
@@ -344,9 +391,9 @@ input::placeholder {
 
 .pin-badge {
   margin-left: 8px;
-  padding: 4px 8px;
-  border-radius: 2px;
-  background: var(--quick-tag-bg);
+  padding: 4px 10px;
+  border-radius: 0;
+  border: 1px solid var(--surface-line);
   font-size: 0.75rem;
   letter-spacing: 0.1em;
 }
@@ -357,25 +404,29 @@ input::placeholder {
 }
 
 .memo-content {
+  margin: 0;
   white-space: pre-wrap;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 .memo-footer {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--surface-line);
 }
 
 .tag-list,
 .quick-tag-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
 }
 
 .quick-tag-chip {
-  background: rgba(114, 246, 197, 0.22);
+  background: rgba(9, 106, 146, 0.18);
+  border-color: var(--quick-tag-active);
   color: var(--text-primary);
 }
 
@@ -392,6 +443,14 @@ input::placeholder {
 .file-input {
   position: relative;
   overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--surface-line);
+  padding: 10px 20px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .file-input input {
@@ -401,12 +460,16 @@ input::placeholder {
   cursor: pointer;
 }
 
+.file-input:hover {
+  background: rgba(9, 106, 146, 0.12);
+}
+
 .flash-message {
   position: fixed;
   bottom: 40px;
   right: 40px;
   padding: 14px 24px;
-  border-radius: 2px;
+  border-radius: 0;
   background: rgba(9, 106, 146, 0.92);
   color: #fff;
   letter-spacing: 0.02em;
@@ -426,13 +489,12 @@ input::placeholder {
 
 @media (max-width: 720px) {
   .app-shell {
-    padding: 56px 20px 88px;
+    padding: 64px 20px 104px;
   }
 
   .app-header {
-    flex-direction: column;
-    align-items: stretch;
-    padding: 28px 24px;
+    grid-template-columns: 1fr;
+    padding: 32px 24px;
   }
 
   .header-actions {
@@ -440,11 +502,31 @@ input::placeholder {
   }
 
   .filter-panel {
-    padding: 16px;
+    padding: 24px;
   }
 
   .filter-panel.collapsed {
     width: 100%;
+  }
+
+  .memo-input,
+  .memo-board .memo-card {
+    padding: 32px;
+  }
+
+  .filter-compact {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-compact input {
+    max-width: none;
+    width: 100%;
+  }
+
+  .compact-actions {
+    width: 100%;
+    justify-content: flex-end;
   }
 }
 
@@ -452,11 +534,13 @@ input::placeholder {
   display: flex;
   align-items: center;
   gap: 12px;
+  width: 100%;
 }
 
 .filter-compact input {
-  flex: 1 1 auto;
+  flex: 1 1 240px;
   min-width: 0;
+  max-width: 360px;
 }
 
 .compact-actions {
@@ -465,10 +549,33 @@ input::placeholder {
   gap: 6px;
 }
 
+.compact-actions button {
+  padding: 6px 12px;
+}
+
+.filter-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.filter-status::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--bg-accent);
+}
+
 .filter-details {
   display: flex;
   flex-direction: column;
   gap: 18px;
+  padding-top: 12px;
 }
 
 .filter-row {
@@ -504,4 +611,5 @@ input::placeholder {
 button.icon.ghost.active {
   background: rgba(9, 106, 146, 0.18);
   color: var(--bg-accent);
+  border-color: var(--quick-tag-active);
 }
