@@ -1,4 +1,7 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
+
+
+
 import { MemoFilter, QuickTag } from '../types';
 import { toggleQuickTag } from '../services/tagging';
 
@@ -99,6 +102,7 @@ const TagFilter = ({ filter, tags, quickTags, onChange, onReset }: TagFilterProp
           )}
         </div>
       </div>
+
       {showDetails && (
         <div className="filter-details" id={detailsId}>
           <div className="filter-row">
@@ -120,6 +124,7 @@ const TagFilter = ({ filter, tags, quickTags, onChange, onReset }: TagFilterProp
               ピンのみ
             </label>
           </div>
+
           <div className="tag-filter-group">
             <p className="filter-label">#タグ</p>
             <div className="chip-list compact">
@@ -136,6 +141,7 @@ const TagFilter = ({ filter, tags, quickTags, onChange, onReset }: TagFilterProp
               ))}
             </div>
           </div>
+
           <div className="tag-filter-group">
             <p className="filter-label">クイックタグ</p>
             <div className="chip-list compact">
@@ -147,12 +153,7 @@ const TagFilter = ({ filter, tags, quickTags, onChange, onReset }: TagFilterProp
                   onClick={() => handleQuickTagToggle(tag)}
                 >
                   {tag}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
+
     </section>
   );
 };

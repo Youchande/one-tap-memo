@@ -19,6 +19,7 @@
   --shadow-hard: none;
   --quick-tag-bg: rgba(9, 106, 146, 0.12);
   --quick-tag-active: rgba(9, 106, 146, 0.68);
+
   --danger: #ff6b81;
   --success: #72f6c5;
 }
@@ -43,6 +44,7 @@
   --shadow-hard: none;
   --quick-tag-bg: rgba(9, 106, 146, 0.08);
   --quick-tag-active: rgba(9, 106, 146, 0.82);
+
   --danger: #d72638;
   --success: #0ca678;
 }
@@ -86,6 +88,7 @@ main {
   background: transparent;
   border: none;
   border-bottom: 1px solid var(--surface-line);
+
 }
 
 .app-header h1 {
@@ -100,6 +103,7 @@ main {
   color: var(--text-muted);
   font-size: 0.95rem;
   max-width: 420px;
+
 }
 
 .header-actions {
@@ -108,6 +112,7 @@ main {
   gap: 8px 12px;
   justify-content: flex-end;
   align-items: center;
+
 }
 
 button {
@@ -124,6 +129,7 @@ button {
 button:disabled {
   opacity: 0.45;
   cursor: not-allowed;
+
 }
 
 button:focus-visible,
@@ -161,6 +167,7 @@ button.ghost.toggle {
 button.ghost.toggle.active {
   border-color: var(--quick-tag-active);
   color: var(--bg-accent);
+
 }
 
 button.danger {
@@ -182,6 +189,8 @@ button.icon:hover {
 
 button.icon.ghost {
   border-color: transparent;
+}
+
 }
 
 button.quick-tag,
@@ -262,6 +271,7 @@ button.quick-tag.active,
 
 .memo-input header p {
   margin: 8px 0 0;
+
   color: var(--text-muted);
   font-size: 0.9rem;
 }
@@ -281,12 +291,14 @@ input[type='date'] {
 
 textarea {
   line-height: 1.7;
+
 }
 
 textarea::placeholder,
 input::placeholder {
   color: var(--text-muted);
   opacity: 0.75;
+
 }
 
 .quick-tag-container,
@@ -307,12 +319,14 @@ input::placeholder {
   display: flex;
   align-items: center;
   gap: 16px;
+
 }
 
 .voice-indicator {
   font-size: 0.85rem;
   color: var(--text-muted);
   letter-spacing: 0.08em;
+
 }
 
 .voice-indicator.active {
@@ -364,6 +378,7 @@ input::placeholder {
 .hint {
   font-size: 0.85rem;
   color: var(--text-muted);
+
 }
 
 .tag-chip,
@@ -371,16 +386,17 @@ input::placeholder {
   font-size: 0.85rem;
 }
 
-
 .memo-board {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
   gap: 40px;
+
 }
 
 .memo-board.empty {
   text-align: center;
   padding: 72px;
+
   color: var(--text-muted);
   font-style: italic;
 }
@@ -389,12 +405,14 @@ input::placeholder {
   display: flex;
   flex-direction: column;
   gap: 20px;
+
   position: relative;
   overflow: hidden;
 }
 
 .memo-card.pinned {
   border: 1px solid var(--quick-tag-active);
+
 }
 
 .card-header {
@@ -403,6 +421,7 @@ input::placeholder {
   justify-content: space-between;
   padding-bottom: 12px;
   border-bottom: 1px solid var(--surface-line);
+
 }
 
 .timestamp {
@@ -415,6 +434,7 @@ input::placeholder {
   padding: 4px 10px;
   border-radius: 0;
   border: 1px solid var(--surface-line);
+
   font-size: 0.75rem;
   letter-spacing: 0.1em;
 }
@@ -428,6 +448,7 @@ input::placeholder {
   margin: 0;
   white-space: pre-wrap;
   line-height: 1.7;
+
 }
 
 .memo-footer {
@@ -436,6 +457,7 @@ input::placeholder {
   gap: 8px;
   padding-top: 12px;
   border-top: 1px solid var(--surface-line);
+
 }
 
 .tag-list,
@@ -448,6 +470,7 @@ input::placeholder {
 .quick-tag-chip {
   background: rgba(9, 106, 146, 0.18);
   border-color: var(--quick-tag-active);
+
   color: var(--text-primary);
 }
 
@@ -472,6 +495,7 @@ input::placeholder {
   color: inherit;
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+
 }
 
 .file-input input {
@@ -495,6 +519,7 @@ input::placeholder {
   color: #fff;
   letter-spacing: 0.02em;
   animation: fadeUp 0.25s ease;
+
 }
 
 @keyframes fadeUp {
@@ -629,3 +654,4 @@ button.icon.ghost.active {
   color: var(--bg-accent);
   border-color: var(--quick-tag-active);
 }
+

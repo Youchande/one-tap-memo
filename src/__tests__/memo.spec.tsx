@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import App from '../App';
 import { serializeToCSV, parseCSV } from '../services/export';
 
+
 class MockSpeechRecognition {
   public lang = 'ja-JP';
   public continuous = false;
@@ -159,6 +160,7 @@ describe('One Tap Memo', () => {
     expect(parsed.content).toBe('日本語メモ');
     expect(parsed.tags).toEqual(['タグ']);
   });
+
 
   it('JSONインポートでメモが置き換わる', async () => {
     render(<App />);
