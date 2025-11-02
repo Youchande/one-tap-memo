@@ -1,34 +1,37 @@
 :root {
-  font-family: 'Zen Kaku Gothic New', 'Inter', 'Shippori Mincho', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Zen Kaku Gothic New', 'Inter', 'Shippori Mincho', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
+-serif;
   color: #f4f7fa;
-  background-color: #0a1c25;
-  --bg-panel: rgba(8, 31, 43, 0.92);
-  --bg-card: rgba(10, 42, 58, 0.95);
+  background-color: #04141b;
+  --page-background: #04141b;
+  --bg-panel: #081e28;
+  --bg-card: #0b2530;
   --bg-accent: #096a92;
-  --bg-elevated: rgba(9, 106, 146, 0.12);
+  --bg-elevated: rgba(9, 106, 146, 0.16);
   --border-soft: rgba(9, 106, 146, 0.35);
   --text-primary: #f4f7fa;
-  --text-muted: rgba(244, 247, 250, 0.65);
-  --shadow-soft: 0 18px 32px rgba(5, 17, 23, 0.55);
-  --shadow-hard: 0 12px 26px rgba(5, 17, 23, 0.7);
-  --quick-tag-bg: rgba(9, 106, 146, 0.12);
-  --quick-tag-active: rgba(9, 106, 146, 0.65);
+  --text-muted: rgba(244, 247, 250, 0.6);
+  --shadow-soft: 0 12px 28px rgba(0, 0, 0, 0.45);
+  --shadow-hard: none;
+  --quick-tag-bg: rgba(9, 106, 146, 0.14);
+  --quick-tag-active: rgba(9, 106, 146, 0.6);
   --danger: #ff6b81;
   --success: #72f6c5;
 }
 
 :root[data-theme='light'] {
   color: #0d1f29;
-  background-color: #f2f7f9;
-  --bg-panel: rgba(255, 255, 255, 0.92);
-  --bg-card: rgba(255, 255, 255, 0.98);
+  background-color: #f5f9fb;
+  --page-background: #f5f9fb;
+  --bg-panel: #ffffff;
+  --bg-card: #f3f7f9;
   --bg-accent: #096a92;
-  --bg-elevated: rgba(9, 106, 146, 0.08);
-  --border-soft: rgba(9, 106, 146, 0.25);
+  --bg-elevated: rgba(9, 106, 146, 0.12);
+  --border-soft: rgba(9, 106, 146, 0.28);
   --text-primary: #0d1f29;
   --text-muted: rgba(13, 31, 41, 0.6);
-  --shadow-soft: 0 18px 30px rgba(9, 106, 146, 0.12);
-  --shadow-hard: 0 12px 22px rgba(9, 106, 146, 0.18);
+  --shadow-soft: 0 10px 24px rgba(9, 106, 146, 0.12);
+  --shadow-hard: none;
   --quick-tag-bg: rgba(9, 106, 146, 0.12);
   --quick-tag-active: rgba(9, 106, 146, 0.9);
   --danger: #d72638;
@@ -44,25 +47,17 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: linear-gradient(180deg, var(--bg-accent) 0%, rgba(3, 17, 25, 0.95) 100%);
+  background-color: var(--page-background);
   color: var(--text-primary);
 }
 
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  backdrop-filter: blur(48px);
-  z-index: -1;
-}
-
 .app-shell {
-  max-width: 1080px;
+  max-width: 1040px;
   margin: 0 auto;
-  padding: 40px 20px 72px;
+  padding: 72px 32px 112px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 48px;
 }
 
 .app-header {
@@ -70,11 +65,10 @@ body::before {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 12px 16px;
-  padding: 20px;
-  border-radius: 8px;
+  gap: 16px 20px;
+  padding: 32px;
+  border-radius: 2px;
   background: var(--bg-panel);
-  box-shadow: var(--shadow-soft);
   border: 1px solid var(--border-soft);
 }
 
@@ -100,17 +94,15 @@ body::before {
 button {
   font: inherit;
   border: none;
-  border-radius: 6px;
-  padding: 10px 16px;
+  border-radius: 2px;
+  padding: 10px 18px;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 button:disabled {
   opacity: 0.45;
   cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
 }
 
 button:focus-visible,
@@ -121,23 +113,21 @@ textarea:focus-visible {
 }
 
 button.primary {
-  background: linear-gradient(135deg, #0b7fa7, #096a92);
+  background: var(--bg-accent);
   color: #fff;
-  box-shadow: var(--shadow-hard);
 }
 
 button.primary:hover {
-  transform: translateY(-1px);
+  background: #0b7fa7;
 }
 
 button.ghost {
-  background: var(--quick-tag-bg);
+  background: transparent;
   color: inherit;
-  box-shadow: none;
 }
 
 button.ghost:hover {
-  background: var(--bg-elevated);
+  background: rgba(9, 106, 146, 0.12);
 }
 
 button.danger {
@@ -146,20 +136,20 @@ button.danger {
 }
 
 button.icon {
-  padding: 6px 8px;
-  border-radius: 4px;
-  background: var(--quick-tag-bg);
-  font-size: 1rem;
+  padding: 6px 10px;
+  border-radius: 2px;
+  background: transparent;
+  font-size: 0.9rem;
 }
 
 button.icon:hover {
-  background: var(--bg-elevated);
+  background: rgba(9, 106, 146, 0.12);
 }
 
 button.quick-tag,
 .tag-chip,
 .quick-tag-chip {
-  border-radius: 6px;
+  border-radius: 2px;
   padding: 6px 12px;
   background: var(--quick-tag-bg);
   color: inherit;
@@ -174,14 +164,35 @@ button.quick-tag.active,
 }
 
 .memo-input,
-.filter-panel,
 .memo-board .memo-card {
   background: var(--bg-panel);
-  border-radius: 8px;
-  padding: 20px;
+  border-radius: 2px;
+  padding: 28px;
   border: 1px solid var(--border-soft);
-  box-shadow: var(--shadow-soft);
   position: relative;
+}
+
+.filter-panel {
+  background: var(--bg-panel);
+  border-radius: 2px;
+  padding: 20px 24px;
+  border: 1px solid var(--border-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.filter-panel.collapsed {
+  max-width: 420px;
+  padding: 12px 16px;
+}
+
+.filter-panel.expanded {
+  gap: 24px;
+}
+
+.filter-panel.active {
+  border-color: var(--quick-tag-active);
 }
 
 .memo-input header h2 {
@@ -199,14 +210,13 @@ textarea,
 input[type='text'],
 input[type='date'] {
   width: 100%;
-  border-radius: 6px;
+  border-radius: 2px;
   border: 1px solid var(--border-soft);
   background: var(--bg-card);
   color: inherit;
-  padding: 12px 14px;
+  padding: 10px 12px;
   resize: vertical;
   font: inherit;
-  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.12);
 }
 
 textarea::placeholder,
@@ -220,7 +230,7 @@ input::placeholder {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 12px;
+  margin-top: 8px;
 }
 
 .chip-list.compact {
@@ -229,7 +239,7 @@ input::placeholder {
 }
 
 .actions {
-  margin-top: 16px;
+  margin-top: 18px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -253,49 +263,13 @@ input::placeholder {
   color: var(--danger);
 }
 
-.filter-toolbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.filter-toolbar h3 {
-  margin: 0;
-  font-size: 1rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.filter-inputs {
-  display: flex;
-  align-items: center;
-  flex: 1 1 240px;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.filter-inputs input[type='text'] {
-  flex: 1 1 180px;
-  min-width: 160px;
-}
-
-.filter-inputs input[type='date'] {
-  flex: 0 0 auto;
-}
-
-.filter-toolbar button {
-  flex: 0 0 auto;
-}
-
 .toggle {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   padding: 6px 10px;
-  border-radius: 6px;
-  background: var(--quick-tag-bg);
+  border-radius: 2px;
+  background: rgba(9, 106, 146, 0.12);
   border: 1px solid transparent;
   color: inherit;
   font-size: 0.85rem;
@@ -335,7 +309,7 @@ input::placeholder {
 .memo-board {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+  gap: 28px;
 }
 
 .memo-board.empty {
@@ -351,15 +325,6 @@ input::placeholder {
   gap: 16px;
   position: relative;
   overflow: hidden;
-}
-
-.memo-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(135deg, rgba(9, 106, 146, 0.2), transparent 65%);
-  pointer-events: none;
 }
 
 .memo-card.pinned {
@@ -380,7 +345,7 @@ input::placeholder {
 .pin-badge {
   margin-left: 8px;
   padding: 4px 8px;
-  border-radius: 4px;
+  border-radius: 2px;
   background: var(--quick-tag-bg);
   font-size: 0.75rem;
   letter-spacing: 0.1em;
@@ -388,7 +353,7 @@ input::placeholder {
 
 .card-actions {
   display: flex;
-  gap: 8px;
+  gap: 6px;
 }
 
 .memo-content {
@@ -410,7 +375,7 @@ input::placeholder {
 }
 
 .quick-tag-chip {
-  background: rgba(114, 246, 197, 0.18);
+  background: rgba(114, 246, 197, 0.22);
   color: var(--text-primary);
 }
 
@@ -438,14 +403,14 @@ input::placeholder {
 
 .flash-message {
   position: fixed;
-  bottom: 32px;
-  right: 32px;
-  padding: 12px 20px;
-  border-radius: 6px;
-  background: rgba(9, 106, 146, 0.88);
+  bottom: 40px;
+  right: 40px;
+  padding: 14px 24px;
+  border-radius: 2px;
+  background: rgba(9, 106, 146, 0.92);
   color: #fff;
-  box-shadow: var(--shadow-hard);
-  animation: fadeUp 0.3s ease;
+  letter-spacing: 0.02em;
+  animation: fadeUp 0.25s ease;
 }
 
 @keyframes fadeUp {
@@ -461,15 +426,82 @@ input::placeholder {
 
 @media (max-width: 720px) {
   .app-shell {
-    padding: 32px 16px 72px;
+    padding: 56px 20px 88px;
   }
 
   .app-header {
     flex-direction: column;
     align-items: stretch;
+    padding: 28px 24px;
   }
 
   .header-actions {
     justify-content: flex-start;
   }
+
+  .filter-panel {
+    padding: 16px;
+  }
+
+  .filter-panel.collapsed {
+    width: 100%;
+  }
+}
+
+.filter-compact {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.filter-compact input {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.compact-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.filter-details {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.filter-row input[type='date'] {
+  width: auto;
+}
+
+.filter-label {
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+button.icon.ghost.active {
+  background: rgba(9, 106, 146, 0.18);
+  color: var(--bg-accent);
 }

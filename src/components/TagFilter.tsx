@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { MemoFilter, QuickTag } from '../types';
 import { toggleQuickTag } from '../services/tagging';
 
@@ -37,62 +37,105 @@ const TagFilter = ({ filter, tags, quickTags, onChange, onReset }: TagFilterProp
     filter.tags.length > 0 ||
     filter.quickTags.length > 0;
 
+  const [expanded, setExpanded] = useState(hasActiveFilters);
+
+  useEffect(() => {
+    if (!hasActiveFilters) {
+      setExpanded(false);
+    }
+  }, [hasActiveFilters]);
+
+  const toggleExpanded = () => {
+    setExpanded((prev) => !prev);
+  };
+
+  const showDetails = expanded;
+
   return (
-    <section className="filter-panel" aria-label="検索フィルタ">
-      <div className="filter-toolbar">
-        <h3>検索</h3>
-        <div className="filter-inputs">
-          <input type="text" value={filter.text} onChange={handleTextChange} placeholder="語句" />
-          <input
-            type="date"
-            value={filter.date ?? ''}
-            onChange={(event) => onChange({ ...filter, date: event.target.value || null })}
-            aria-label="日付で絞り込み"
-          />
-          <label className={filter.onlyPinned ? 'toggle active' : 'toggle'}>
+    <section
+      className={`filter-panel ${showDetails ? 'expanded' : 'collapsed'}${hasActiveFilters ? ' active' : ''}`}
+      aria-label="検索フィルタ"
+    >
+      <div className="filter-compact">
+        <label htmlFor="memo-filter-text" className="sr-only">
+          メモを検索
+        </label>
+        <input
+          id="memo-filter-text"
+          type="text"
+          value={filter.text}
+          onChange={handleTextChange}
+          placeholder="メモ内検索"
+        />
+        <div className="compact-actions">
+          <button
+            type="button"
+            className={hasActiveFilters ? 'icon ghost active' : 'icon ghost'}
+            aria-expanded={expanded}
+            onClick={toggleExpanded}
+            aria-label="詳細フィルタを切り替え"
+          >
+            {expanded ? '－' : '＋'}
+          </button>
+          <button className="ghost" onClick={onReset} disabled={!hasActiveFilters}>
+            リセット
+          </button>
+        </div>
+      </div>
+      {showDetails && (
+        <div className="filter-details">
+          <div className="filter-row">
+            <label className="filter-label" htmlFor="memo-filter-date">
+              日付
+            </label>
             <input
-              type="checkbox"
-              checked={filter.onlyPinned}
-              onChange={(event) => onChange({ ...filter, onlyPinned: event.target.checked })}
+              id="memo-filter-date"
+              type="date"
+              value={filter.date ?? ''}
+              onChange={(event) => onChange({ ...filter, date: event.target.value || null })}
             />
-            ピンのみ
-          </label>
+            <label className={filter.onlyPinned ? 'toggle active' : 'toggle'}>
+              <input
+                type="checkbox"
+                checked={filter.onlyPinned}
+                onChange={(event) => onChange({ ...filter, onlyPinned: event.target.checked })}
+              />
+              ピンのみ
+            </label>
+          </div>
+          <div className="tag-filter-group">
+            <p className="filter-label">#タグ</p>
+            <div className="chip-list compact">
+              {tags.length === 0 && <span className="hint">まだタグがありません</span>}
+              {tags.map((tag) => (
+                <button
+                  type="button"
+                  key={tag}
+                  className={filter.tags.includes(tag) ? 'tag-chip active' : 'tag-chip'}
+                  onClick={() => handleTagToggle(tag)}
+                >
+                  #{tag}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="tag-filter-group">
+            <p className="filter-label">クイックタグ</p>
+            <div className="chip-list compact">
+              {quickTags.map((tag) => (
+                <button
+                  type="button"
+                  key={tag}
+                  className={filter.quickTags.includes(tag) ? 'quick-tag active' : 'quick-tag'}
+                  onClick={() => handleQuickTagToggle(tag)}
+                >
+                  {tag}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
-        <button className="ghost" onClick={onReset} disabled={!hasActiveFilters}>
-          リセット
-        </button>
-      </div>
-      <div className="tag-filter-group">
-        <p>#タグ</p>
-        <div className="chip-list compact">
-          {tags.length === 0 && <span className="hint">まだタグがありません</span>}
-          {tags.map((tag) => (
-            <button
-              type="button"
-              key={tag}
-              className={filter.tags.includes(tag) ? 'tag-chip active' : 'tag-chip'}
-              onClick={() => handleTagToggle(tag)}
-            >
-              #{tag}
-            </button>
-          ))}
-        </div>
-      </div>
-      <div className="tag-filter-group">
-        <p>クイックタグ</p>
-        <div className="chip-list compact">
-          {quickTags.map((tag) => (
-            <button
-              type="button"
-              key={tag}
-              className={filter.quickTags.includes(tag) ? 'quick-tag active' : 'quick-tag'}
-              onClick={() => handleQuickTagToggle(tag)}
-            >
-              {tag}
-            </button>
-          ))}
-        </div>
-      </div>
+      )}
     </section>
   );
 };
