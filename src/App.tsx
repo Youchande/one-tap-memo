@@ -34,18 +34,26 @@ function App() {
   const [flash, setFlash] = useState<string | null>(null);
 
   useEffect(() => {
-    const stored = loadMemos();
-    setMemos(
-      stored.slice().sort((a, b) => Number(b.pinned) - Number(a.pinned) || new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-    );
-    const storedTheme = (localStorage.getItem(THEME_KEY) as Theme | null) ?? 'dark';
-    setTheme(storedTheme);
-    document.documentElement.dataset.theme = storedTheme;
+    try {
+      const stored = loadMemos();
+      setMemos(
+        stored.slice().sort((a, b) => Number(b.pinned) - Number(a.pinned) || new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+      );
+      const storedTheme = (localStorage.getItem(THEME_KEY) as Theme | null) ?? 'dark';
+      setTheme(storedTheme);
+      document.documentElement.dataset.theme = storedTheme;
+    } catch (error) {
+      console.error('Failed to initialize app', error);
+    }
   }, []);
 
   useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    localStorage.setItem(THEME_KEY, theme);
+    try {
+      document.documentElement.dataset.theme = theme;
+      localStorage.setItem(THEME_KEY, theme);
+    } catch (error) {
+      console.error('Failed to save theme', error);
+    }
   }, [theme]);
 
   const showFlash = (message: string) => {

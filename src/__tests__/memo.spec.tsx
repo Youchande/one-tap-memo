@@ -3,6 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import { serializeToCSV, parseCSV } from '../services/export';
+import { Memo } from '../types';
 
 
 class MockSpeechRecognition {
@@ -38,16 +39,11 @@ class MockSpeechRecognition {
   }
 }
 
-declare global {
-  interface Window {
-    SpeechRecognition?: typeof MockSpeechRecognition;
-  }
-}
 
 const setupEnvironment = () => {
   Object.defineProperty(window, 'SpeechRecognition', {
     configurable: true,
-    value: MockSpeechRecognition,
+    value: MockSpeechRecognition as any,
   });
 
   Object.defineProperty(URL, 'createObjectURL', {
@@ -143,7 +139,7 @@ describe('One Tap Memo', () => {
   });
 
   it('CSVがUTF-8のBOM付きで日本語を保持する', () => {
-    const memo = {
+    const memo: Memo = {
       id: 'csv-1',
       content: '日本語メモ',
       tags: ['タグ'],
@@ -151,7 +147,7 @@ describe('One Tap Memo', () => {
       createdAt: '2024-01-01T00:00:00.000Z',
       updatedAt: '2024-01-01T00:00:00.000Z',
       pinned: false,
-    } as const;
+    };
 
     const csv = serializeToCSV([memo]);
     expect(csv.startsWith('\uFEFF')).toBe(true);

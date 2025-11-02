@@ -8,26 +8,34 @@ const generateId = () =>
     : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
 export const loadMemos = (): Memo[] => {
-  const raw = localStorage.getItem(STORAGE_KEY);
-  if (!raw) return [];
   try {
-    const data = JSON.parse(raw);
-    if (Array.isArray(data)) {
-      return data.map((memo) => ({
-        ...memo,
-        tags: memo.tags ?? [],
-        quickTags: memo.quickTags ?? [],
-        pinned: memo.pinned ?? false,
-      }));
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return [];
+    try {
+      const data = JSON.parse(raw);
+      if (Array.isArray(data)) {
+        return data.map((memo) => ({
+          ...memo,
+          tags: memo.tags ?? [],
+          quickTags: memo.quickTags ?? [],
+          pinned: memo.pinned ?? false,
+        }));
+      }
+    } catch (error) {
+      console.error('Failed to parse memo data', error);
     }
   } catch (error) {
-    console.error('Failed to parse memo data', error);
+    console.error('Failed to access localStorage', error);
   }
   return [];
 };
 
 const persist = (memos: Memo[]) => {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(memos));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(memos));
+  } catch (error) {
+    console.error('Failed to save memo data', error);
+  }
 };
 
 export const createMemo = (content: string, tags: string[], quickTags: Memo['quickTags']): Memo => {

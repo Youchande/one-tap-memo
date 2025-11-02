@@ -1,7 +1,4 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
-
-
-
 import { MemoFilter, QuickTag } from '../types';
 import { toggleQuickTag } from '../services/tagging';
 
@@ -153,7 +150,12 @@ const TagFilter = ({ filter, tags, quickTags, onChange, onReset }: TagFilterProp
                   onClick={() => handleQuickTagToggle(tag)}
                 >
                   {tag}
-
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
