@@ -50,7 +50,9 @@ export const serializeToCSV = (memos: Memo[]): string => {
     memo.pinned ? '1' : '0',
   ]);
   const escaped = rows.map((row) => row.map((value) => escapeCsv(value ?? '')).join(','));
-  return [CSV_HEADER.join(','), ...escaped].join('\n');
+  const csv = [CSV_HEADER.join(','), ...escaped].join('\n');
+  return `\uFEFF${csv}`;
+
 };
 
 export const parseJSON = (payload: string): Memo[] => {
@@ -60,7 +62,9 @@ export const parseJSON = (payload: string): Memo[] => {
 };
 
 export const parseCSV = (payload: string): Memo[] => {
-  const [headerLine, ...lines] = payload.trim().split(/\r?\n/);
+  const sanitizedPayload = payload.replace(/^\uFEFF/, '').trim();
+  const [headerLine, ...lines] = sanitizedPayload.split(/\r?\n/);
+
   if (!headerLine) return [];
   const header = headerLine.split(',');
   if (header.length < CSV_HEADER.length) throw new Error('CSVヘッダーが不正です');

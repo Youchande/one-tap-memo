@@ -93,7 +93,9 @@ function App() {
   };
 
   const handleExportCSV = () => {
-    const blob = new Blob([serializeToCSV(memos)], { type: 'text/csv' });
+// 文字化け防止のため UTF-8 を明示
+const blob = new Blob([serializeToCSV(memos)], { type: 'text/csv;charset=utf-8' });
+
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;

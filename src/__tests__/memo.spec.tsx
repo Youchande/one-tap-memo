@@ -2,6 +2,8 @@ import { describe, expect, beforeEach, vi, it } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
+import { serializeToCSV, parseCSV } from '../services/export';
+
 
 class MockSpeechRecognition {
   public lang = 'ja-JP';
@@ -139,6 +141,26 @@ describe('One Tap Memo', () => {
     await userEvent.click(csvButton);
     expect(URL.createObjectURL).toHaveBeenCalledTimes(2);
   });
+
+  it('CSVがUTF-8のBOM付きで日本語を保持する', () => {
+    const memo = {
+      id: 'csv-1',
+      content: '日本語メモ',
+      tags: ['タグ'],
+      quickTags: ['仕事'],
+      createdAt: '2024-01-01T00:00:00.000Z',
+      updatedAt: '2024-01-01T00:00:00.000Z',
+      pinned: false,
+    } as const;
+
+    const csv = serializeToCSV([memo]);
+    expect(csv.startsWith('\uFEFF')).toBe(true);
+
+    const [parsed] = parseCSV(csv);
+    expect(parsed.content).toBe('日本語メモ');
+    expect(parsed.tags).toEqual(['タグ']);
+  });
+
 
   it('JSONインポートでメモが置き換わる', async () => {
     render(<App />);
